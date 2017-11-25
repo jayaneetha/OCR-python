@@ -5,18 +5,18 @@ from PIL import Image, ImageOps
 
 
 def process_image(file_name, size=(7, 7)):
-    im = Image.open(file_name)
+    img = Image.open(file_name)
 
-    out = im.convert('L')
-    out = ImageOps.invert(out)
+    out_img = img.convert('L')
+    out_img = ImageOps.invert(out_img)
 
-    # out.show()
+    # out_img.show()
 
-    a = np.asarray(out)
+    np_array = np.asarray(out_img)
 
-    rowSum = np.sum(a, 0)
+    rowSum = np.sum(np_array, 0)
 
-    columnSum = np.sum(a, 1)
+    columnSum = np.sum(np_array, 1)
 
     def find_left(row_sum):
         for i in range(row_sum.shape[0]):
@@ -44,11 +44,11 @@ def process_image(file_name, size=(7, 7)):
     bottom = find_bottom(columnSum)
 
     box = (left, top, right, bottom)
-    cropped = out.crop(box)
+    cropped_img = out_img.crop(box)
 
     # cropped.show()
 
-    transf = cropped.resize(size, Image.LANCZOS)
+    resize_img = cropped_img.resize(size, Image.LANCZOS)
 
     # transf.show()
     # transf.convert('1').show()
@@ -67,4 +67,4 @@ def process_image(file_name, size=(7, 7)):
         tti = Image.fromarray(tt)
         return tti
 
-    return convert_bw(transf, 50)
+    return convert_bw(resize_img, 50)
