@@ -1,3 +1,5 @@
+# # used to process a character image # loads a given character image, crops to the exact size of the character,
+# convert to black and white image and resize to a size and returns
 import numpy as np
 from PIL import Image, ImageOps
 
@@ -45,13 +47,6 @@ def process_image(file_name, size=(7, 7)):
     cropped = out.crop(box)
 
     # cropped.show()
-
-    # cropped.resize((7, 7), Image.BOX).show()
-    # cropped.resize((7, 7), Image.BILINEAR).show()
-    # cropped.resize((7, 7), Image.HAMMING).show()
-    # cropped.resize((7, 7), Image.LANCZOS).show()
-    # cropped.resize((7, 7), Image.BICUBIC).show()
-    # cropped.resize((7, 7), Image.NEAREST).show()
 
     transf = cropped.resize(size, Image.LANCZOS)
 
